@@ -1,0 +1,68 @@
+{
+  "name": "caddy-local-dev-proxy",
+  "version": "0.1.0",
+  "description": "Start or reuse a detached Caddy reverse proxy for .localhost development domains",
+  "keywords": [
+    "bun",
+    "bunx",
+    "caddy",
+    "development",
+    "localhost",
+    "proxy",
+    "reverse-proxy"
+  ],
+  "homepage": "https://github.com/jkelin/caddy-local-dev-proxy#readme",
+  "bugs": {
+    "url": "https://github.com/jkelin/caddy-local-dev-proxy/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkelin/caddy-local-dev-proxy.git"
+  },
+  "author": {
+    "name": "Jan Kelin",
+    "email": "jan@jkelin.com",
+    "url": "https://github.com/jkelin"
+  },
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "caddy-local-dev-proxy": "dist/index.js"
+  },
+  "files": [
+    "dist/index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun build src/index.ts --target bun --format esm --outfile dist/index.js",
+    "check": "bun test && tsc --noEmit",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "test-project:start": "bun run test-project/server.ts",
+    "test-project:proxy": "bun run src/index.ts web.localhost:3100 api.localhost:3200",
+    "test-project:verify": "bun run test-project/verify.ts",
+    "prepack": "bun run build",
+    "prepublishOnly": "bun run check",
+    "publish:npm": "bun publish"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "latest",
+    "zod": "^4.4.3"
+  },
+  "engines": {
+    "bun": ">=1.3.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "packageManager": "bun@1.3.14",
+  "preferGlobal": true,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

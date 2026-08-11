@@ -1,0 +1,10 @@
+{
+  "name": "caddy-local-dev-proxy-test-project",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "bun run server.ts",
+    "proxy": "bun run ../src/index.ts web.localhost:3100 api.localhost:3200",
+    "verify": "bun run verify.ts"
+  }
+}
