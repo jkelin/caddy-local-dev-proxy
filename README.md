@@ -17,6 +17,7 @@ The command starts Caddy as an operating-system-detached process, then configure
 - No hosts-file changes: `localhost` and names ending in `.localhost` resolve to the loopback interface.
 - One command configures any number of local domains.
 - The proxy survives the shell command that launched it.
+- Windows starts Caddy without opening a console window.
 - Re-running the command reuses an existing Caddy process.
 - Unrelated routes in an existing Caddy configuration are preserved.
 - New listeners bind only to IPv4 and IPv6 loopback addresses, not public interfaces.
@@ -55,7 +56,7 @@ bunx caddy-local-dev-proxy localhost:3000 admin.api.localhost:4000
 
 1. The command validates every domain and port.
 2. It queries Caddy's default admin API to determine whether Caddy is already running and configured on port 80.
-3. If Caddy is absent and port 80 is free, it validates a bootstrap configuration and starts `caddy run` in a detached process group.
+3. If Caddy is absent and port 80 is free, it validates a bootstrap configuration and starts `caddy run` in a detached process group. On Windows, the process is created with its console window hidden.
 4. It reads the active native JSON configuration, adds managed reverse-proxy routes, and posts the result to Caddy's transactional `/load` endpoint.
 5. It reads the configuration back to verify that Caddy retained a port-80 listener.
 

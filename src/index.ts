@@ -282,7 +282,8 @@ async function canConnect(hostname: string, port: number): Promise<boolean> {
 /**
  * Starts `caddy run` in an OS-detached process group and waits for its API.
  * Edge cases: the bootstrap config is validated first, temporary files are
- * always removed, and early process exit is reported instead of timing out.
+ * always removed, early process exit is reported instead of timing out, and
+ * Windows is explicitly prevented from creating a console window.
  */
 async function startDetachedCaddy(): Promise<CaddyConfig> {
   const executable = Bun.which("caddy");
@@ -306,6 +307,7 @@ async function startDetachedCaddy(): Promise<CaddyConfig> {
       [executable, "run", "--config", temporaryConfigPath],
       {
         detached: true,
+        windowsHide: true,
         stdin: "ignore",
         stdout: "ignore",
         stderr: "ignore",
@@ -331,6 +333,7 @@ async function validateBootstrapConfig(
   const process = Bun.spawn(
     [executable, "validate", "--config", configPath],
     {
+      windowsHide: true,
       stdin: "ignore",
       stdout: "pipe",
       stderr: "pipe",
