@@ -44,7 +44,8 @@
     "test-project:verify": "bun run test-project/verify.ts",
     "prepack": "bun run build",
     "prepublishOnly": "bun run check",
-    "publish:npm": "bun publish"
+    "publish:npm": "bun publish",
+    "start": "bun run src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

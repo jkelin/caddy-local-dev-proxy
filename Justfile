@@ -4,8 +4,6 @@ set lists
 default:
     @just --list
 
-[script]
-[cache(inputs = ["src/index.ts", "package.json", "bun.lock"], outputs = "dist/index.js", extra = `bun --version`)]
 build:
     bun run build
 
